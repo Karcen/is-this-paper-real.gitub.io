@@ -1,7 +1,3 @@
-Here’s a clean, fully English **README.md** you can directly use for your project:
-
----
-
 # 📚 Citation Verifier
 
 A lightweight, browser-based tool for checking whether scholarly references actually exist.
