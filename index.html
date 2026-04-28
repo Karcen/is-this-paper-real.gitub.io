@@ -44,7 +44,6 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-
 html { scroll-behavior: smooth; }
 
 body {
@@ -58,11 +57,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-.container {
-  max-width: 820px;
-  margin: 0 auto;
-  padding: 64px 32px 80px;
-}
+.container { max-width: 860px; margin: 0 auto; padding: 64px 32px 80px; }
 
 .top-bar {
   display: flex;
@@ -83,8 +78,7 @@ body {
   background: transparent;
   border: 1px solid var(--rule);
   color: var(--fg-soft);
-  width: 36px;
-  height: 36px;
+  width: 36px; height: 36px;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
@@ -95,14 +89,9 @@ body {
   padding: 0;
 }
 
-.theme-toggle:hover {
-  border-color: var(--fg-soft);
-  color: var(--fg);
-}
+.theme-toggle:hover { border-color: var(--fg-soft); color: var(--fg); }
 
-header.intro {
-  margin-bottom: 48px;
-}
+header.intro { margin-bottom: 48px; }
 
 h1 {
   font-family: 'Source Serif 4', serif;
@@ -233,11 +222,7 @@ button.primary:hover:not(:disabled) {
   to { opacity: 1; transform: translateY(0); }
 }
 
-.divider {
-  height: 1px;
-  background: var(--rule);
-  margin: 8px 0 32px;
-}
+.divider { height: 1px; background: var(--rule); margin: 8px 0 32px; }
 
 .summary-bar {
   display: flex;
@@ -273,7 +258,8 @@ button.primary:hover:not(:disabled) {
 .summary-bar .stat.l strong { color: var(--likely); }
 .summary-bar .stat.n strong { color: var(--notfound); }
 
-.export-bar {
+/* Toolbar with all export buttons */
+.toolbar {
   display: flex;
   gap: 8px;
   margin-bottom: 32px;
@@ -281,7 +267,7 @@ button.primary:hover:not(:disabled) {
   align-items: center;
 }
 
-.export-bar .label {
+.toolbar .label {
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
   letter-spacing: 0.12em;
@@ -290,7 +276,14 @@ button.primary:hover:not(:disabled) {
   margin-right: 6px;
 }
 
-.export-btn {
+.toolbar .sep {
+  width: 1px;
+  height: 20px;
+  background: var(--rule);
+  margin: 0 4px;
+}
+
+.tool-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -306,13 +299,9 @@ button.primary:hover:not(:disabled) {
   transition: all 0.15s;
 }
 
-.export-btn:hover:not(:disabled) {
-  border-color: var(--fg);
-  background: var(--bg);
-  color: var(--fg);
-}
+.tool-btn:hover:not(:disabled) { border-color: var(--fg); }
 
-.export-btn .count {
+.tool-btn .count {
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
   font-weight: 500;
@@ -324,22 +313,125 @@ button.primary:hover:not(:disabled) {
   text-align: center;
 }
 
-.export-btn.v:hover:not(:disabled) { border-color: var(--verified); color: var(--verified); }
-.export-btn.l:hover:not(:disabled) { border-color: var(--likely); color: var(--likely); }
-.export-btn.n:hover:not(:disabled) { border-color: var(--notfound); color: var(--notfound); }
+.tool-btn.v:hover:not(:disabled) { border-color: var(--verified); color: var(--verified); }
+.tool-btn.l:hover:not(:disabled) { border-color: var(--likely); color: var(--likely); }
+.tool-btn.n:hover:not(:disabled) { border-color: var(--notfound); color: var(--notfound); }
+.tool-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
-.export-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+/* ===== Grouped sections ===== */
+.group {
+  margin-bottom: 24px;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--bg);
+}
 
+.group-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: var(--bg-2);
+  cursor: pointer;
+  user-select: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s;
+}
+
+.group.open .group-header { border-bottom-color: var(--rule); }
+
+.group-header:hover { background: var(--bg-3); }
+
+.group-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.group-title .dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.group-title.v .dot { background: var(--verified); }
+.group-title.l .dot { background: var(--likely); }
+.group-title.n .dot { background: var(--notfound); }
+
+.group-count {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--fg-soft);
+  padding: 2px 8px;
+  background: var(--bg-3);
+  border-radius: 3px;
+}
+
+.group-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.group-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.mini-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border: 1px solid var(--rule);
+  background: var(--bg);
+  color: var(--fg-soft);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.mini-btn:hover { border-color: var(--fg); color: var(--fg); }
+
+.chevron {
+  font-size: 12px;
+  color: var(--fg-muted);
+  transition: transform 0.2s;
+}
+
+.group.open .chevron { transform: rotate(90deg); }
+
+.group-body {
+  display: none;
+  padding: 4px 20px 20px;
+}
+
+.group.open .group-body { display: block; }
+
+.group-empty {
+  font-style: italic;
+  color: var(--fg-muted);
+  font-size: 13.5px;
+  padding: 16px 0;
+  text-align: center;
+}
+
+/* ===== Entries ===== */
 .entry {
   border-top: 1px solid var(--rule);
-  padding: 24px 0;
+  padding: 20px 0;
   display: grid;
-  grid-template-columns: 44px 1fr;
-  gap: 16px;
+  grid-template-columns: 36px 1fr;
+  gap: 14px;
   animation: entryIn 0.3s ease;
 }
 
-.entry:last-child { border-bottom: 1px solid var(--rule); }
+.entry:first-child { border-top: none; }
 
 @keyframes entryIn {
   from { opacity: 0; }
@@ -348,7 +440,7 @@ button.primary:hover:not(:disabled) {
 
 .entry-num {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
+  font-size: 11px;
   color: var(--fg-muted);
   padding-top: 4px;
   letter-spacing: 0.04em;
@@ -356,93 +448,163 @@ button.primary:hover:not(:disabled) {
 
 .entry-body { min-width: 0; }
 
-.entry-text {
+/* Original input (collapsible) */
+.entry-original {
   font-family: 'Source Serif 4', serif;
-  font-size: 14.5px;
-  line-height: 1.55;
-  color: var(--fg);
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--fg-soft);
   margin-bottom: 12px;
   word-wrap: break-word;
+  padding-left: 12px;
+  border-left: 2px solid var(--rule);
 }
 
-.status {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+.entry-original .label-inline {
+  display: block;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 10.5px;
-  letter-spacing: 0.1em;
+  font-size: 9px;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  padding: 4px 10px;
-  border: 1px solid;
-  border-radius: 3px;
-  margin-bottom: 12px;
-  font-weight: 500;
+  color: var(--fg-muted);
+  margin-bottom: 4px;
 }
 
-.status.verified { color: var(--verified); border-color: var(--verified); background: var(--verified-bg); }
-.status.likely { color: var(--likely); border-color: var(--likely); background: var(--likely-bg); }
-.status.notfound { color: var(--notfound); border-color: var(--notfound); background: var(--notfound-bg); }
-.status.checking { color: var(--fg-muted); border-color: var(--rule-strong); }
-
-.status .glyph { font-size: 11px; }
-
-.match-card {
+/* Resolved (real) reference card */
+.resolved {
   background: var(--bg-2);
-  border-left: 2px solid var(--rule-strong);
+  border-left: 3px solid var(--rule-strong);
   padding: 14px 18px;
-  font-size: 13.5px;
-  margin-top: 6px;
   border-radius: 0 4px 4px 0;
+  margin-bottom: 10px;
 }
 
-.match-card.verified { border-left-color: var(--verified); }
-.match-card.likely { border-left-color: var(--likely); }
-.match-card.notfound { border-left-color: var(--notfound); }
+.resolved.verified { border-left-color: var(--verified); }
+.resolved.likely { border-left-color: var(--likely); }
+.resolved.notfound { border-left-color: var(--notfound); }
 
-.match-label {
+.resolved-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.resolved-label {
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--fg-muted);
+}
+
+.copy-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border: 1px solid var(--rule);
+  background: var(--bg);
+  color: var(--fg-soft);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+.copy-btn:hover { border-color: var(--fg); color: var(--fg); }
+.copy-btn.copied { color: var(--verified); border-color: var(--verified); }
+
+/* Real reference rendered as APA-like single line */
+.real-ref {
+  font-family: 'Source Serif 4', serif;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--fg);
   margin-bottom: 6px;
 }
 
-.match-title {
-  font-weight: 600;
-  margin-bottom: 4px;
-  line-height: 1.4;
-  font-size: 14.5px;
-  color: var(--fg);
-}
-
-.match-meta {
-  color: var(--fg-soft);
-  font-size: 13px;
-  margin-bottom: 4px;
-  font-style: italic;
-}
-
-.match-meta a {
+.real-ref .real-title { font-weight: 600; }
+.real-ref .real-venue { font-style: italic; color: var(--fg); }
+.real-ref a {
   color: var(--focus);
   text-decoration: none;
-  font-style: normal;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
 }
-.match-meta a:hover { text-decoration: underline; }
+.real-ref a:hover { text-decoration: underline; }
+
+/* Format tabs to switch APA/Vancouver/plain */
+.format-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 8px;
+  margin-top: 4px;
+}
+
+.format-tab {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  background: transparent;
+  color: var(--fg-muted);
+  border: 1px solid transparent;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.format-tab.active {
+  color: var(--fg);
+  border-color: var(--rule);
+  background: var(--bg);
+}
+
+.format-tab:hover:not(.active) { color: var(--fg-soft); }
+
+/* Status badge inline */
+.status-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  color: var(--fg-muted);
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.status-line .glyph { font-size: 12px; }
+.status-line .v { color: var(--verified); }
+.status-line .l { color: var(--likely); }
+.status-line .n { color: var(--notfound); }
+
+.status-line .score {
+  font-size: 10px;
+  padding: 1px 6px;
+  background: var(--bg-3);
+  border-radius: 2px;
+  color: var(--fg-soft);
+}
 
 .note {
   font-size: 12.5px;
   color: var(--fg-soft);
-  margin-top: 10px;
   line-height: 1.5;
+  margin-top: 8px;
+  font-style: italic;
 }
 
 .score-bar {
   height: 2px;
   background: var(--rule);
   margin-top: 10px;
-  position: relative;
   overflow: hidden;
   border-radius: 1px;
 }
@@ -450,21 +612,65 @@ button.primary:hover:not(:disabled) {
 .score-bar-fill {
   height: 100%;
   transition: width 0.5s ease;
-  background: var(--fg-muted);
 }
 
-.entry[data-status="verified"] .score-bar-fill { background: var(--verified); }
-.entry[data-status="likely"] .score-bar-fill { background: var(--likely); }
-.entry[data-status="notfound"] .score-bar-fill { background: var(--notfound); }
+.score-bar-fill.verified { background: var(--verified); }
+.score-bar-fill.likely { background: var(--likely); }
+.score-bar-fill.notfound { background: var(--notfound); }
 
-@keyframes pulse {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 1; }
+/* Live verifying placeholder */
+.live-list { margin-bottom: 24px; }
+
+.live-entry {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 14px;
+  padding: 14px 0;
+  border-top: 1px solid var(--rule);
+  font-size: 13px;
+  color: var(--fg-soft);
 }
 
-.checking .glyph {
-  animation: pulse 1.2s ease-in-out infinite;
-  display: inline-block;
+.live-entry:first-child { border-top: none; }
+
+.live-entry .live-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.live-status {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--fg-muted);
+  margin-top: 4px;
+}
+
+@keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+.checking { animation: pulse 1.2s ease-in-out infinite; display: inline-block; }
+
+/* Toast notifications */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  padding: 12px 20px;
+  background: var(--fg);
+  color: var(--bg);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  border-radius: 4px;
+  z-index: 1000;
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 footer {
@@ -486,17 +692,13 @@ footer a {
   transition: all 0.15s;
 }
 
-footer a:hover {
-  color: var(--fg);
-  border-bottom-color: var(--fg);
-}
+footer a:hover { color: var(--fg); border-bottom-color: var(--fg); }
 
 .credit {
   font-family: 'Source Serif 4', serif;
   font-style: italic;
   font-size: 13px;
   color: var(--fg-soft);
-  letter-spacing: 0;
   margin-top: 16px;
 }
 
@@ -510,10 +712,13 @@ footer a:hover {
 @media (max-width: 640px) {
   .container { padding: 40px 20px 60px; }
   .top-bar { margin-bottom: 36px; }
-  .entry { grid-template-columns: 32px 1fr; gap: 10px; }
+  .entry { grid-template-columns: 28px 1fr; gap: 10px; }
   .summary-bar { gap: 24px; padding: 18px 20px; }
   .summary-bar .stat strong { font-size: 24px; }
   .meta { gap: 14px; }
+  .group-header { padding: 14px 16px; flex-wrap: wrap; gap: 8px; }
+  .group-body { padding: 4px 14px 16px; }
+  .toolbar { gap: 6px; }
 }
 </style>
 </head>
@@ -528,11 +733,11 @@ footer a:hover {
 
     <header class="intro">
       <h1>Citation Verifier</h1>
-      <p class="lede">A lightweight tool for checking whether scholarly references actually exist. Paste a list in any prose-style format — APA, Chicago, Vancouver, MLA — and each entry is checked against the CrossRef database.</p>
+      <p class="lede">A lightweight tool for checking whether scholarly references actually exist. Paste a list in any prose-style format — APA, Chicago, Vancouver, MLA — and each entry is checked against the CrossRef database. Verified references are returned in clean, copy-ready form.</p>
       <div class="meta">
         <span>No API key</span>
         <span>No sign-up</span>
-        <span>DOIs preferred · titles matched heuristically</span>
+        <span>Resolves to canonical CrossRef metadata</span>
       </div>
     </header>
 
@@ -554,24 +759,31 @@ Example:
         </div>
 
         <div class="helper-text">
-          <strong>How it works.</strong> When a DOI is present, the tool resolves it directly via CrossRef. Otherwise, the bibliographic text is sent to CrossRef's search API and the closest match is scored by title-token overlap and year alignment. Statuses: <strong style="color:var(--verified)">Verified</strong> (high confidence), <strong style="color:var(--likely)">Possibly Real</strong> (partial match — manual check advised), <strong style="color:var(--notfound)">Not Found</strong> (no record — possibly fabricated or not indexed).
+          <strong>How it works.</strong> When a DOI is present, the tool resolves it directly via CrossRef. Otherwise, the bibliographic text is sent to CrossRef's search API and the closest match is scored by title-token overlap and year alignment. After verification, references are <strong>grouped by status</strong> and the <strong>canonical metadata returned by CrossRef</strong> is shown alongside each entry. You can copy individual references in APA / Vancouver / plain format, or export entire groups.
         </div>
       </section>
 
       <section class="results" id="results">
-        <div class="section-label">Output · Verification</div>
+        <div class="section-label">Output · Verification & Resolved References</div>
         <div class="divider"></div>
         <div class="summary-bar" id="summary"></div>
 
-        <div class="export-bar" id="export-bar" style="display:none;">
+        <div class="toolbar" id="toolbar" style="display:none;">
           <span class="label">Export CSV</span>
-          <button class="export-btn" id="export-all">All <span class="count" id="cnt-all">0</span></button>
-          <button class="export-btn v" id="export-v">Verified <span class="count" id="cnt-v">0</span></button>
-          <button class="export-btn l" id="export-l">Possibly Real <span class="count" id="cnt-l">0</span></button>
-          <button class="export-btn n" id="export-n">Not Found <span class="count" id="cnt-n">0</span></button>
+          <button class="tool-btn" id="csv-all">All <span class="count" id="cnt-all">0</span></button>
+          <button class="tool-btn v" id="csv-v">Verified <span class="count" id="cnt-v">0</span></button>
+          <button class="tool-btn l" id="csv-l">Possibly Real <span class="count" id="cnt-l">0</span></button>
+          <button class="tool-btn n" id="csv-n">Not Found <span class="count" id="cnt-n">0</span></button>
+          <span class="sep"></span>
+          <span class="label">Export Real Refs</span>
+          <button class="tool-btn" id="ref-apa">APA (.txt)</button>
+          <button class="tool-btn" id="ref-vancouver">Vancouver (.txt)</button>
+          <button class="tool-btn" id="ref-bibtex">BibTeX (.bib)</button>
+          <button class="tool-btn" id="ref-copy">Copy All</button>
         </div>
 
-        <div id="entries"></div>
+        <div id="live-area"></div>
+        <div id="groups"></div>
       </section>
     </main>
 
@@ -583,6 +795,8 @@ Example:
       </div>
     </footer>
   </div>
+
+  <div class="toast" id="toast"></div>
 
 <script>
 // ============ Theme ============
@@ -616,21 +830,27 @@ const verifyBtn = document.getElementById('verify-btn');
 const clearBtn = document.getElementById('clear-btn');
 const parseInfo = document.getElementById('parse-info');
 const resultsEl = document.getElementById('results');
-const entriesEl = document.getElementById('entries');
 const summaryEl = document.getElementById('summary');
-const exportBar = document.getElementById('export-bar');
-const exportAllBtn = document.getElementById('export-all');
-const exportVBtn = document.getElementById('export-v');
-const exportLBtn = document.getElementById('export-l');
-const exportNBtn = document.getElementById('export-n');
+const toolbar = document.getElementById('toolbar');
+const liveArea = document.getElementById('live-area');
+const groupsEl = document.getElementById('groups');
+const toastEl = document.getElementById('toast');
 
-let lastRun = [];
+let lastRun = []; // [{ ref, result }, ...]
+
+// ============ Toast ============
+let toastTimer = null;
+function showToast(msg) {
+  toastEl.textContent = msg;
+  toastEl.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2000);
+}
 
 // ============ Parsing ============
 function parseReferences(text) {
   text = text.trim();
   if (!text) return [];
-
   const numberedRe = /(?:^|\n)\s*(?:\[(\d+)\]|\((\d+)\)|(\d+)\.)\s+/g;
   const matches = [...text.matchAll(numberedRe)];
   if (matches.length >= 2) {
@@ -643,12 +863,9 @@ function parseReferences(text) {
     }
     return refs;
   }
-
   const blanks = text.split(/\n\s*\n/).map(s => s.trim().replace(/\s+/g, ' ')).filter(Boolean);
   if (blanks.length >= 2) return blanks;
-
-  const lines = text.split('\n').map(s => s.trim()).filter(Boolean);
-  return lines;
+  return text.split('\n').map(s => s.trim()).filter(Boolean);
 }
 
 function extractDOI(ref) {
@@ -698,28 +915,145 @@ async function searchByText(text) {
   } catch (e) { return []; }
 }
 
-function workTitle(work) {
-  return Array.isArray(work.title) ? work.title[0] : (work.title || '');
+function workTitle(w) { return Array.isArray(w.title) ? w.title[0] : (w.title || ''); }
+
+function workAuthorsList(w) {
+  if (!w.author) return [];
+  return w.author.map(a => ({ family: a.family || '', given: a.given || '' }));
 }
 
-function workAuthors(work) {
-  if (!work.author) return '';
-  const list = work.author.slice(0, 3).map(a => {
-    const fam = a.family || '';
-    const giv = a.given ? a.given.split(/\s+/).map(s => s[0] ? s[0] + '.' : '').join('') : '';
-    return giv ? `${fam}, ${giv}` : fam;
-  }).join('; ');
-  return list + (work.author.length > 3 ? ', et al.' : '');
-}
-
-function workYear(work) {
-  const issued = work.issued || work['published-print'] || work['published-online'] || work.created;
+function workYear(w) {
+  const issued = w.issued || w['published-print'] || w['published-online'] || w.created;
   if (issued && issued['date-parts'] && issued['date-parts'][0]) return issued['date-parts'][0][0];
   return '';
 }
 
-function workVenue(work) {
-  return (work['container-title'] && work['container-title'][0]) || work.publisher || '';
+function workVenue(w) { return (w['container-title'] && w['container-title'][0]) || w.publisher || ''; }
+function workVolume(w) { return w.volume || ''; }
+function workIssue(w) { return w.issue || ''; }
+function workPages(w) { return w.page || ''; }
+
+// ============ Reference formatting ============
+function formatAuthorsAPA(authors) {
+  if (!authors.length) return '';
+  const fmt = a => {
+    const fam = a.family;
+    const giv = a.given ? a.given.split(/\s+/).map(s => s[0] ? s[0].toUpperCase() + '.' : '').join(' ') : '';
+    return giv ? `${fam}, ${giv}` : fam;
+  };
+  if (authors.length === 1) return fmt(authors[0]);
+  if (authors.length === 2) return `${fmt(authors[0])}, & ${fmt(authors[1])}`;
+  if (authors.length <= 20) {
+    return authors.slice(0, -1).map(fmt).join(', ') + ', & ' + fmt(authors[authors.length - 1]);
+  }
+  return authors.slice(0, 19).map(fmt).join(', ') + ', ... ' + fmt(authors[authors.length - 1]);
+}
+
+function formatAuthorsVancouver(authors) {
+  if (!authors.length) return '';
+  const fmt = a => {
+    const fam = a.family;
+    const giv = a.given ? a.given.split(/\s+/).map(s => s[0] ? s[0].toUpperCase() : '').join('') : '';
+    return giv ? `${fam} ${giv}` : fam;
+  };
+  const list = authors.slice(0, 6).map(fmt).join(', ');
+  return authors.length > 6 ? list + ', et al.' : list;
+}
+
+function formatAPA(work) {
+  const authors = formatAuthorsAPA(workAuthorsList(work));
+  const year = workYear(work);
+  const title = workTitle(work);
+  const venue = workVenue(work);
+  const vol = workVolume(work);
+  const iss = workIssue(work);
+  const pages = workPages(work);
+  const doi = work.DOI;
+
+  let out = '';
+  if (authors) out += authors + ' ';
+  if (year) out += `(${year}). `;
+  if (title) out += title.replace(/\.$/, '') + '. ';
+  if (venue) out += `*${venue}*`;
+  if (vol) out += `, ${vol}`;
+  if (iss) out += `(${iss})`;
+  if (pages) out += `, ${pages}`;
+  if (venue || vol || pages) out += '. ';
+  if (doi) out += `https://doi.org/${doi}`;
+  return out.trim();
+}
+
+function formatAPAPlain(work) {
+  // No markdown emphasis — for .txt export
+  return formatAPA(work).replace(/\*/g, '');
+}
+
+function formatVancouver(work) {
+  const authors = formatAuthorsVancouver(workAuthorsList(work));
+  const year = workYear(work);
+  const title = workTitle(work);
+  const venue = workVenue(work);
+  const vol = workVolume(work);
+  const iss = workIssue(work);
+  const pages = workPages(work);
+  const doi = work.DOI;
+
+  let out = '';
+  if (authors) out += authors + '. ';
+  if (title) out += title.replace(/\.$/, '') + '. ';
+  if (venue) out += venue + '. ';
+  if (year) out += year;
+  if (vol) out += `;${vol}`;
+  if (iss) out += `(${iss})`;
+  if (pages) out += `:${pages}`;
+  if (year || vol) out += '. ';
+  if (doi) out += `doi:${doi}`;
+  return out.trim();
+}
+
+function formatBibTeX(work, idx) {
+  const type = (work.type || 'article-journal').includes('book') ? 'book' : 'article';
+  const authors = workAuthorsList(work).map(a => a.given ? `${a.family}, ${a.given}` : a.family).join(' and ');
+  const year = workYear(work);
+  const firstAuthor = (workAuthorsList(work)[0] || {}).family || 'Unknown';
+  const titleWord = (workTitle(work).split(/\s+/)[0] || 'work').replace(/[^a-zA-Z0-9]/g, '');
+  const key = `${firstAuthor.replace(/\s+/g, '')}${year}${titleWord}`.toLowerCase();
+
+  const fields = [];
+  if (authors) fields.push(`  author = {${authors}}`);
+  if (workTitle(work)) fields.push(`  title = {${workTitle(work)}}`);
+  if (workVenue(work)) fields.push(`  journal = {${workVenue(work)}}`);
+  if (year) fields.push(`  year = {${year}}`);
+  if (workVolume(work)) fields.push(`  volume = {${workVolume(work)}}`);
+  if (workIssue(work)) fields.push(`  number = {${workIssue(work)}}`);
+  if (workPages(work)) fields.push(`  pages = {${workPages(work)}}`);
+  if (work.DOI) fields.push(`  doi = {${work.DOI}}`);
+
+  return `@${type}{${key},\n${fields.join(',\n')}\n}`;
+}
+
+// HTML version with markdown-style emphasis rendered for the UI
+function formatAPAHtml(work) {
+  const authors = formatAuthorsAPA(workAuthorsList(work));
+  const year = workYear(work);
+  const title = workTitle(work);
+  const venue = workVenue(work);
+  const vol = workVolume(work);
+  const iss = workIssue(work);
+  const pages = workPages(work);
+  const doi = work.DOI;
+
+  let out = '';
+  if (authors) out += escapeHtml(authors) + ' ';
+  if (year) out += `(${year}). `;
+  if (title) out += `<span class="real-title">${escapeHtml(title.replace(/\.$/, ''))}</span>. `;
+  if (venue) out += `<span class="real-venue">${escapeHtml(venue)}</span>`;
+  if (vol) out += `, <span class="real-venue">${escapeHtml(vol)}</span>`;
+  if (iss) out += `(${escapeHtml(iss)})`;
+  if (pages) out += `, ${escapeHtml(pages)}`;
+  if (venue || vol || pages) out += '. ';
+  if (doi) out += `<a href="https://doi.org/${escapeHtml(doi)}" target="_blank" rel="noopener">https://doi.org/${escapeHtml(doi)}</a>`;
+  return out.trim();
 }
 
 // ============ Verification ============
@@ -736,7 +1070,7 @@ async function verifyOne(ref) {
         match: work,
         note: sim >= 0.35
           ? 'DOI resolves and the resolved title matches your reference text.'
-          : 'DOI resolves, but the resolved title differs notably from your reference. Verify the DOI was copied correctly — it may belong to a different work.'
+          : 'DOI resolves, but the resolved title differs notably from your reference. The DOI may belong to a different work.'
       };
     }
   }
@@ -791,38 +1125,59 @@ function escapeHtml(s) {
   return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
 }
 
+function copyToClipboard(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    return navigator.clipboard.writeText(text);
+  }
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); } catch (e) {}
+  document.body.removeChild(ta);
+  return Promise.resolve();
+}
+
 function renderEntry(idx, ref, result) {
   const div = document.createElement('div');
   div.className = 'entry';
-  div.dataset.status = result.status;
 
   const labels = {
-    verified: ['✓', 'Verified'],
-    likely: ['◐', 'Possibly Real'],
-    notfound: ['✗', 'Not Found']
+    verified: ['✓', 'Verified', 'v'],
+    likely: ['◐', 'Possibly Real', 'l'],
+    notfound: ['✗', 'Not Found', 'n']
   };
-  const [glyph, label] = labels[result.status];
+  const [glyph, label, klass] = labels[result.status];
 
-  let matchHtml = '';
+  let resolvedHtml = '';
   if (result.match) {
-    const venue = workVenue(result.match);
-    const year = workYear(result.match);
-    const authors = workAuthors(result.match);
-    const doi = result.match.DOI;
     const simPct = Math.round((result.titleSim || 0) * 100);
-    matchHtml = `
-      <div class="match-card ${result.status}">
-        <div class="match-label">CrossRef record · title overlap ${simPct}%</div>
-        <div class="match-title">${escapeHtml(workTitle(result.match) || 'Untitled')}</div>
-        <div class="match-meta">${escapeHtml(authors)}${authors ? ' · ' : ''}${escapeHtml(venue)}${year ? ' · ' + year : ''}</div>
-        ${doi ? `<div class="match-meta"><a href="https://doi.org/${doi}" target="_blank" rel="noopener">doi.org/${doi}</a></div>` : ''}
+    const apaHtml = formatAPAHtml(result.match);
+    const formatId = `fmt-${idx}-${Math.random().toString(36).slice(2, 8)}`;
+    resolvedHtml = `
+      <div class="resolved ${result.status}">
+        <div class="resolved-header">
+          <span class="resolved-label">CrossRef Resolved · ${simPct}% title match</span>
+          <button class="copy-btn" data-copy-target="${formatId}-active" title="Copy this reference">Copy</button>
+        </div>
+        <div class="format-tabs" data-fmt-group="${formatId}">
+          <button class="format-tab active" data-fmt="apa">APA</button>
+          <button class="format-tab" data-fmt="vancouver">Vancouver</button>
+          <button class="format-tab" data-fmt="plain">Plain</button>
+        </div>
+        <div class="real-ref" id="${formatId}-display" data-html-apa='${escapeAttr(apaHtml)}'>${apaHtml}</div>
         <div class="note">${escapeHtml(result.note)}</div>
-        <div class="score-bar"><div class="score-bar-fill" style="width:${simPct}%"></div></div>
+        <div class="score-bar"><div class="score-bar-fill ${result.status}" style="width:${simPct}%"></div></div>
       </div>
     `;
   } else {
-    matchHtml = `
-      <div class="match-card ${result.status}">
+    resolvedHtml = `
+      <div class="resolved ${result.status}">
+        <div class="resolved-header">
+          <span class="resolved-label">No CrossRef record</span>
+        </div>
         <div class="note">${escapeHtml(result.note)}</div>
       </div>
     `;
@@ -831,20 +1186,162 @@ function renderEntry(idx, ref, result) {
   div.innerHTML = `
     <div class="entry-num">${String(idx + 1).padStart(2, '0')}</div>
     <div class="entry-body">
-      <div class="entry-text">${escapeHtml(ref)}</div>
-      <div class="status ${result.status}">
-        <span class="glyph">${glyph}</span> ${label} · ${escapeHtml(result.method)}
+      <div class="status-line">
+        <span class="${klass}"><span class="glyph">${glyph}</span> ${label}</span>
+        <span>·</span>
+        <span>${escapeHtml(result.method)}</span>
       </div>
-      ${matchHtml}
+      <div class="entry-original">
+        <span class="label-inline">Your input</span>
+        ${escapeHtml(ref)}
+      </div>
+      ${resolvedHtml}
     </div>
   `;
+
+  // Wire format tabs and copy buttons
+  if (result.match) {
+    const tabs = div.querySelectorAll('.format-tab');
+    const display = div.querySelector('.real-ref');
+    const apaHtml = formatAPAHtml(result.match);
+    const apaPlain = formatAPAPlain(result.match);
+    const vanc = formatVancouver(result.match);
+    const formats = {
+      apa: { html: apaHtml, plain: apaPlain },
+      vancouver: { html: escapeHtml(vanc), plain: vanc },
+      plain: { html: escapeHtml(apaPlain), plain: apaPlain }
+    };
+    let activeFmt = 'apa';
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        activeFmt = tab.dataset.fmt;
+        display.innerHTML = formats[activeFmt].html;
+      });
+    });
+    const copyBtn = div.querySelector('.copy-btn');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        copyToClipboard(formats[activeFmt].plain).then(() => {
+          copyBtn.textContent = 'Copied';
+          copyBtn.classList.add('copied');
+          setTimeout(() => {
+            copyBtn.textContent = 'Copy';
+            copyBtn.classList.remove('copied');
+          }, 1500);
+        });
+      });
+    }
+  }
+
   return div;
 }
 
+function escapeAttr(s) {
+  return String(s).replace(/'/g, '&#39;').replace(/"/g, '&quot;');
+}
+
+function renderGroups(results) {
+  groupsEl.innerHTML = '';
+
+  const groups = [
+    { key: 'verified', title: 'Verified', klass: 'v', items: [] },
+    { key: 'likely', title: 'Possibly Real', klass: 'l', items: [] },
+    { key: 'notfound', title: 'Not Found', klass: 'n', items: [] }
+  ];
+
+  results.forEach((r, i) => {
+    const g = groups.find(g => g.key === r.result.status);
+    if (g) g.items.push({ ...r, originalIdx: i });
+  });
+
+  groups.forEach(group => {
+    const el = document.createElement('div');
+    el.className = 'group' + (group.items.length > 0 && group.key !== 'notfound' ? ' open' : '');
+    if (group.items.length === 0) {
+      // Keep groups in DOM but collapsed and showing empty state
+      el.classList.remove('open');
+    } else if (group.key === 'notfound') {
+      // Default open Not Found too — these need attention
+      el.classList.add('open');
+    }
+
+    const hasActions = group.items.length > 0 && group.key !== 'notfound';
+    const actionsHtml = hasActions ? `
+      <div class="group-actions" onclick="event.stopPropagation()">
+        <button class="mini-btn" data-group-copy="${group.key}">Copy</button>
+        <button class="mini-btn" data-group-export="${group.key}">Export</button>
+      </div>
+    ` : '';
+
+    el.innerHTML = `
+      <div class="group-header">
+        <div class="group-title ${group.klass}">
+          <span class="dot"></span>
+          ${group.title}
+          <span class="group-count">${group.items.length}</span>
+        </div>
+        <div class="group-header-right">
+          ${actionsHtml}
+          <span class="chevron">▸</span>
+        </div>
+      </div>
+      <div class="group-body"></div>
+    `;
+
+    const body = el.querySelector('.group-body');
+    if (group.items.length === 0) {
+      body.innerHTML = `<div class="group-empty">— no entries in this group —</div>`;
+    } else {
+      group.items.forEach(item => {
+        body.appendChild(renderEntry(item.originalIdx, item.ref, item.result));
+      });
+    }
+
+    // Header click toggles
+    el.querySelector('.group-header').addEventListener('click', () => {
+      el.classList.toggle('open');
+    });
+
+    // Group copy / export buttons
+    const copyBtn = el.querySelector(`[data-group-copy="${group.key}"]`);
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        const refs = group.items
+          .filter(i => i.result.match)
+          .map((i, n) => `[${n + 1}] ${formatAPAPlain(i.result.match)}`)
+          .join('\n\n');
+        if (refs) {
+          copyToClipboard(refs).then(() => showToast(`Copied ${group.items.length} ${group.title.toLowerCase()} references (APA)`));
+        } else {
+          showToast('No resolved references to copy');
+        }
+      });
+    }
+    const exportBtn = el.querySelector(`[data-group-export="${group.key}"]`);
+    if (exportBtn) {
+      exportBtn.addEventListener('click', () => {
+        const refs = group.items
+          .filter(i => i.result.match)
+          .map((i, n) => `[${n + 1}] ${formatAPAPlain(i.result.match)}`)
+          .join('\n\n');
+        if (refs) {
+          downloadText(`references-${group.key}-${timestamp()}.txt`, refs);
+        } else {
+          showToast('No resolved references to export');
+        }
+      });
+    }
+
+    groupsEl.appendChild(el);
+  });
+}
+
 function renderSummary(results) {
-  const v = results.filter(r => r.status === 'verified').length;
-  const l = results.filter(r => r.status === 'likely').length;
-  const n = results.filter(r => r.status === 'notfound').length;
+  const v = results.filter(r => r.result.status === 'verified').length;
+  const l = results.filter(r => r.result.status === 'likely').length;
+  const n = results.filter(r => r.result.status === 'notfound').length;
   summaryEl.innerHTML = `
     <div class="stat"><strong>${results.length}</strong> Total</div>
     <div class="stat v"><strong>${v}</strong> Verified</div>
@@ -855,10 +1352,6 @@ function renderSummary(results) {
   document.getElementById('cnt-v').textContent = v;
   document.getElementById('cnt-l').textContent = l;
   document.getElementById('cnt-n').textContent = n;
-  exportVBtn.disabled = v === 0;
-  exportLBtn.disabled = l === 0;
-  exportNBtn.disabled = n === 0;
-  exportAllBtn.disabled = results.length === 0;
 }
 
 // ============ CSV export ============
@@ -871,26 +1364,29 @@ function buildCSV(rows) {
   const headers = [
     'Index', 'Status', 'Original Reference', 'Verification Method',
     'Title Match Score (%)', 'CrossRef Title', 'CrossRef Authors',
-    'CrossRef Journal/Publisher', 'CrossRef Year', 'CrossRef DOI',
-    'CrossRef URL', 'Year Match', 'Note'
+    'CrossRef Journal/Publisher', 'CrossRef Year', 'CrossRef Volume',
+    'CrossRef Issue', 'CrossRef Pages', 'CrossRef DOI', 'CrossRef URL',
+    'APA Formatted', 'Year Match', 'Note'
   ];
   const lines = [headers.map(csvEscape).join(',')];
   rows.forEach((row, idx) => {
     const { ref, result } = row;
     const m = result.match;
     const statusLabel = { verified: 'Verified', likely: 'Possibly Real', notfound: 'Not Found' }[result.status] || result.status;
+    const authors = m ? workAuthorsList(m).map(a => a.given ? `${a.family}, ${a.given}` : a.family).join('; ') : '';
     const line = [
-      idx + 1,
-      statusLabel,
-      ref,
-      result.method || '',
+      idx + 1, statusLabel, ref, result.method || '',
       Math.round((result.titleSim || 0) * 100),
       m ? (workTitle(m) || '') : '',
-      m ? workAuthors(m) : '',
+      authors,
       m ? workVenue(m) : '',
       m ? workYear(m) : '',
+      m ? workVolume(m) : '',
+      m ? workIssue(m) : '',
+      m ? workPages(m) : '',
       m && m.DOI ? m.DOI : '',
       m && m.DOI ? `https://doi.org/${m.DOI}` : '',
+      m ? formatAPAPlain(m) : '',
       result.yearMatch == null ? '' : (result.yearMatch ? 'Yes' : 'No'),
       result.note || ''
     ];
@@ -899,18 +1395,18 @@ function buildCSV(rows) {
   return lines.join('\r\n');
 }
 
-function downloadCSV(filename, csvContent) {
-  const BOM = '\uFEFF';
-  const blob = new Blob([BOM + csvContent], { type: 'text/csv;charset=utf-8;' });
+function downloadBlob(filename, content, mime) {
+  const BOM = mime.includes('csv') ? '\uFEFF' : '';
+  const blob = new Blob([BOM + content], { type: mime + ';charset=utf-8;' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
   setTimeout(() => URL.revokeObjectURL(url), 1500);
 }
+
+function downloadCSV(filename, content) { downloadBlob(filename, content, 'text/csv'); }
+function downloadText(filename, content) { downloadBlob(filename, content, 'text/plain'); }
 
 function timestamp() {
   const d = new Date();
@@ -918,18 +1414,55 @@ function timestamp() {
   return `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}-${pad(d.getHours())}${pad(d.getMinutes())}`;
 }
 
-function exportFiltered(filter, label) {
+function exportCSV(filter, label) {
   const rows = lastRun.filter(r => filter(r.result));
-  if (!rows.length) return;
+  if (!rows.length) { showToast('Nothing to export'); return; }
   downloadCSV(`citations-${label}-${timestamp()}.csv`, buildCSV(rows));
+  showToast(`Exported ${rows.length} entries to CSV`);
 }
 
-exportAllBtn.addEventListener('click', () => exportFiltered(() => true, 'all'));
-exportVBtn.addEventListener('click', () => exportFiltered(r => r.status === 'verified', 'verified'));
-exportLBtn.addEventListener('click', () => exportFiltered(r => r.status === 'likely', 'possibly-real'));
-exportNBtn.addEventListener('click', () => exportFiltered(r => r.status === 'notfound', 'not-found'));
+document.getElementById('csv-all').addEventListener('click', () => exportCSV(() => true, 'all'));
+document.getElementById('csv-v').addEventListener('click', () => exportCSV(r => r.status === 'verified', 'verified'));
+document.getElementById('csv-l').addEventListener('click', () => exportCSV(r => r.status === 'likely', 'possibly-real'));
+document.getElementById('csv-n').addEventListener('click', () => exportCSV(r => r.status === 'notfound', 'not-found'));
 
-// ============ Events ============
+// Real reference export — uses Verified + Possibly Real (anything with a CrossRef match)
+function getResolvedRefs() {
+  return lastRun.filter(r => r.result.match);
+}
+
+document.getElementById('ref-apa').addEventListener('click', () => {
+  const rows = getResolvedRefs();
+  if (!rows.length) { showToast('No resolved references available'); return; }
+  const out = rows.map((r, i) => `[${i + 1}] ${formatAPAPlain(r.result.match)}`).join('\n\n');
+  downloadText(`references-apa-${timestamp()}.txt`, out);
+  showToast(`Exported ${rows.length} references in APA format`);
+});
+
+document.getElementById('ref-vancouver').addEventListener('click', () => {
+  const rows = getResolvedRefs();
+  if (!rows.length) { showToast('No resolved references available'); return; }
+  const out = rows.map((r, i) => `${i + 1}. ${formatVancouver(r.result.match)}`).join('\n');
+  downloadText(`references-vancouver-${timestamp()}.txt`, out);
+  showToast(`Exported ${rows.length} references in Vancouver format`);
+});
+
+document.getElementById('ref-bibtex').addEventListener('click', () => {
+  const rows = getResolvedRefs();
+  if (!rows.length) { showToast('No resolved references available'); return; }
+  const out = rows.map((r, i) => formatBibTeX(r.result.match, i)).join('\n\n');
+  downloadText(`references-${timestamp()}.bib`, out);
+  showToast(`Exported ${rows.length} references as BibTeX`);
+});
+
+document.getElementById('ref-copy').addEventListener('click', () => {
+  const rows = getResolvedRefs();
+  if (!rows.length) { showToast('No resolved references available'); return; }
+  const out = rows.map((r, i) => `[${i + 1}] ${formatAPAPlain(r.result.match)}`).join('\n\n');
+  copyToClipboard(out).then(() => showToast(`Copied ${rows.length} references to clipboard (APA)`));
+});
+
+// ============ Live verification flow ============
 verifyBtn.addEventListener('click', async () => {
   const text = refsInput.value.trim();
   if (!text) return;
@@ -941,59 +1474,69 @@ verifyBtn.addEventListener('click', async () => {
   parseInfo.textContent = `${refs.length} references parsed · verifying...`;
   verifyBtn.disabled = true;
   resultsEl.classList.add('visible');
-  entriesEl.innerHTML = '';
+  groupsEl.innerHTML = '';
+  liveArea.innerHTML = '';
   summaryEl.innerHTML = '';
-  exportBar.style.display = 'none';
+  toolbar.style.display = 'none';
   lastRun = [];
 
-  const placeholders = refs.map((ref, i) => {
+  // Live progress list
+  const liveWrap = document.createElement('div');
+  liveWrap.className = 'live-list';
+  liveArea.appendChild(liveWrap);
+
+  const liveEntries = refs.map((ref, i) => {
     const div = document.createElement('div');
-    div.className = 'entry';
-    div.dataset.status = 'checking';
+    div.className = 'live-entry';
+    const short = ref.length > 90 ? ref.substring(0, 90) + '…' : ref;
     div.innerHTML = `
       <div class="entry-num">${String(i + 1).padStart(2, '0')}</div>
-      <div class="entry-body">
-        <div class="entry-text">${escapeHtml(ref)}</div>
-        <div class="status checking"><span class="glyph">○</span> Checking · CrossRef</div>
+      <div>
+        <div class="live-text">${escapeHtml(short)}</div>
+        <div class="live-status"><span class="checking">○</span> Queued</div>
       </div>
     `;
-    entriesEl.appendChild(div);
+    liveWrap.appendChild(div);
     return div;
   });
 
-  const results = [];
   for (let i = 0; i < refs.length; i++) {
+    const liveStatus = liveEntries[i].querySelector('.live-status');
+    liveStatus.innerHTML = `<span class="checking">○</span> Checking · CrossRef`;
     let result;
     try {
       result = await verifyOne(refs[i]);
     } catch (e) {
       result = {
-        status: 'notfound',
-        method: 'Error',
-        titleSim: 0,
-        match: null,
+        status: 'notfound', method: 'Error', titleSim: 0, match: null,
         note: 'Network or API error: ' + (e.message || 'unknown')
       };
     }
-    results.push(result);
     lastRun.push({ ref: refs[i], result });
-    placeholders[i].replaceWith(renderEntry(i, refs[i], result));
-    renderSummary(results);
+    const labels = { verified: ['✓', 'Verified'], likely: ['◐', 'Possibly Real'], notfound: ['✗', 'Not Found'] };
+    const [g, l] = labels[result.status];
+    liveStatus.innerHTML = `<span style="color:var(--${result.status === 'verified' ? 'verified' : result.status === 'likely' ? 'likely' : 'notfound'})">${g}</span> ${l}`;
     parseInfo.textContent = `Verifying ${i + 1} of ${refs.length}...`;
     await new Promise(r => setTimeout(r, 130));
   }
 
-  parseInfo.textContent = `${refs.length} references checked · CSV export ready`;
+  // Replace live list with grouped output
+  liveArea.innerHTML = '';
+  renderSummary(lastRun);
+  renderGroups(lastRun);
+  toolbar.style.display = 'flex';
+
+  parseInfo.textContent = `${refs.length} references checked · grouped & ready for export`;
   verifyBtn.disabled = false;
-  exportBar.style.display = 'flex';
 });
 
 clearBtn.addEventListener('click', () => {
   refsInput.value = '';
   resultsEl.classList.remove('visible');
-  entriesEl.innerHTML = '';
+  liveArea.innerHTML = '';
+  groupsEl.innerHTML = '';
   summaryEl.innerHTML = '';
-  exportBar.style.display = 'none';
+  toolbar.style.display = 'none';
   lastRun = [];
   parseInfo.textContent = 'Awaiting input';
   refsInput.focus();
@@ -1001,10 +1544,7 @@ clearBtn.addEventListener('click', () => {
 
 refsInput.addEventListener('input', () => {
   const text = refsInput.value.trim();
-  if (!text) {
-    parseInfo.textContent = 'Awaiting input';
-    return;
-  }
+  if (!text) { parseInfo.textContent = 'Awaiting input'; return; }
   const refs = parseReferences(text);
   parseInfo.textContent = `${refs.length} references detected`;
 });
